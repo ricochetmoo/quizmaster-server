@@ -17,7 +17,7 @@ class CreateQuizzesTable extends Migration
             $table->id();
             $table->string('identifier');
             $table->date('date');
-            $table->boolean('completed');
+            $table->boolean('completed')->default(0);
             $table->timestamps();
         });
     }

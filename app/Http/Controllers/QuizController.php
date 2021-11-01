@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Product;
+use App\Quiz;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
