@@ -7,9 +7,10 @@ class Quiz extends Model
 {
 	protected $fillable =
 	[
-		'identifier',
-		'date',
-		'completed'
+		'question',
+		'answer',
+		'fact',
+		'time'
 	];
 
 	protected $hidden = [];
