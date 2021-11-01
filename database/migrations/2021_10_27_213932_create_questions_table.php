@@ -19,6 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->text('answer');
             $table->text('fact');
             $table->integer('time')->default(60);
+            $table->string('quiz');
             $table->timestamps();
         });
     }

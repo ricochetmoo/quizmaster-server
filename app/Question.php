@@ -10,6 +10,7 @@ class Quiz extends Model
 		'question',
 		'answer',
 		'fact',
+		'quiz',
 		'time'
 	];
 
