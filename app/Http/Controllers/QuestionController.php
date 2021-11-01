@@ -2,7 +2,9 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\Quiz;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class QuestionController extends Controller
 {
@@ -13,7 +15,15 @@ class QuestionController extends Controller
 
 	public function showByQuiz($id)
 	{
-		return response()->json(Question::where('quiz', $id));
+		try
+		{
+			Quiz::findOrFail($id);
+			return response()->json(Question::where('quiz', $id));
+		}
+		catch (ModelNotFoundException)
+		{
+			return response('Quiz not found.', 404);
+		}
 	}
 
 	public function show($id)
@@ -23,17 +33,37 @@ class QuestionController extends Controller
 
 	public function create(Request $request)
 	{
-		$question = Question::create($request->all());
+		try
+		{
+			Quiz::findOrFail($request->quiz);
 
-		return response()->json($question, 201);
+			$question = Question::create($request->all());
+
+			return response()->json($question, 201);
+		}
+		catch (ModelNotFoundException)
+		{
+			return response("Quiz identifier invalid.", 400);
+		}
 	}
 
 	public function update(Request $request, $id)
 	{
-		$question = Question::findOrFail($id);
-		$question->update($request->all());
+		try
+		{
+			if (isset($request->quiz))
+			{
+				Quiz::findOrFail($request->quiz);
+			}
 
-		return response()->json($question, 200);
+			$question->update($request->all());
+
+			return response()->json($question, 200);
+		}
+		catch (ModelNotFoundException)
+		{
+			return response("Quiz identifier invalid.", 400);
+		}
 	}
 
 	public function delete($id)
