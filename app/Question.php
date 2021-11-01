@@ -3,7 +3,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Quiz extends Model
+class Question extends Model
 {
 	protected $fillable =
 	[
@@ -11,7 +11,8 @@ class Quiz extends Model
 		'answer',
 		'fact',
 		'quiz',
-		'time'
+		'time',
+		'number'
 	];
 
 	protected $hidden = [];

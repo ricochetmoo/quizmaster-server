@@ -18,12 +18,26 @@ class QuestionController extends Controller
 		try
 		{
 			Quiz::findOrFail($id);
-			return response()->json(Question::where('quiz', $id));
+			return response()->json(Question::where('quiz', $id)->get());
 		}
 		catch (ModelNotFoundException)
 		{
 			return response('Quiz not found.', 404);
 		}
+	}
+
+	public function showNextInQuiz($id)
+	{
+		$question = Question::findOrFail($id);
+		
+		$nextQuestion = Question::where('quiz', $question->quiz)->where('number', '>', $question->number)->orderBy('number', 'asc')->first();
+
+		if (!$nextQuestion)
+		{
+			return response("No more questions in quiz.", 404);
+		}
+
+		return response()->json($nextQuestion);
 	}
 
 	public function show($id)
@@ -36,15 +50,38 @@ class QuestionController extends Controller
 		try
 		{
 			Quiz::findOrFail($request->quiz);
-
-			$question = Question::create($request->all());
-
-			return response()->json($question, 201);
 		}
 		catch (ModelNotFoundException)
 		{
 			return response("Quiz identifier invalid.", 400);
 		}
+
+		$question = new Question;
+		$question->question = $request->question;
+		$question->answer = $request->answer;
+		$question->fact = $request->fact;
+		
+		if ($request->time)
+		{
+			$question->time = $request->time;
+		}
+
+		$question->quiz = $request->quiz;
+
+		$previousQuestion = Question::where('quiz', $request->quiz)->orderBy('number', 'desc')->first();
+
+		if ($previousQuestion)
+		{
+			$question->number = $previousQuestion->number +1;
+		}
+		else
+		{
+			$question->number = 1;
+		}
+
+		$question->save();
+
+		return response()->json($question, 201);
 	}
 
 	public function update(Request $request, $id)

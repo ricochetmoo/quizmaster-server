@@ -29,6 +29,7 @@ $router->group(['prefix' => 'api'], function () use ($router)
     $router->get('questions', ['uses' => 'QuestionController@showAll']);
     $router->get('questions/byQuiz/{id}', ['uses' => 'QuestionController@showByQuiz']);
     $router->get('questions/{id}', ['uses' => 'QuestionController@showOne']);
+    $router->get('questions/{id}/next', ['uses' => 'QuestionController@showNextInQuiz']);
     $router->post('questions', ['uses' => 'QuestionController@create']);
     $router->put('questions/{id}', ['uses' => 'QuestionController@update']);
     $router->delete('questions/{id}', ['uses' => 'QuestionController@delete']);
