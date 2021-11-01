@@ -20,6 +20,13 @@ $router->get('/', function () use ($router)
 
 $router->group(['prefix' => 'api'], function () use ($router)
 {
+    $router->post('register', ['uses' => 'AuthController@register']);
+    $router->post('login', ['uses' => 'AuthController@login']);
+
+    $router->get('profile', ['uses' => 'UserController@profile']);
+    $router->get('users', ['uses' => 'UserController@showAll']);
+    $router->get('users/{id}', ['uses' => 'UserController@showOne']);
+    
     $router->get('quizzes', ['uses' => 'QuizController@showAll']);
     $router->get('quizzes/{id}', ['uses' => 'QuizController@showOne']);
     $router->post('quizzes', ['uses' => 'QuizController@create']);
