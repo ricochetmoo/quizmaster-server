@@ -20,7 +20,7 @@ class QuestionController extends Controller
 			Quiz::findOrFail($id);
 			return response()->json(Question::where('quiz', $id)->get());
 		}
-		catch (ModelNotFoundException)
+		catch (ModelNotFoundException $e)
 		{
 			return response('Quiz not found.', 404);
 		}
@@ -51,7 +51,7 @@ class QuestionController extends Controller
 		{
 			Quiz::findOrFail($request->quiz);
 		}
-		catch (ModelNotFoundException)
+		catch (ModelNotFoundException $e)
 		{
 			return response("Quiz identifier invalid.", 400);
 		}
@@ -97,7 +97,7 @@ class QuestionController extends Controller
 
 			return response()->json($question, 200);
 		}
-		catch (ModelNotFoundException)
+		catch (ModelNotFoundException $e)
 		{
 			return response("Quiz identifier invalid.", 400);
 		}
