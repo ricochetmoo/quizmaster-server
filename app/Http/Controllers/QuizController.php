@@ -10,17 +10,17 @@ class QuizController extends Controller
 	{
 		return response()->json(Quiz::all());
 	}
+	
+	public function showOne($id)
+	{
+		return response()->json(Quiz::find($id));
+	}
 
 	public function create(Request $request)
 	{
 		$quiz = Quiz::create($request->all());
 
 		return response()->json($quiz, 201);
-	}
-
-	public function showOne($id)
-	{
-		return response()->json(Quiz::find($id));
 	}
 
 	public function update(Request $request, $id)
