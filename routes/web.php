@@ -13,6 +13,16 @@
 |
 */
 
-$router->get('/', function () use ($router) {
+$router->get('/', function () use ($router)
+{
     return $router->app->version();
+});
+
+$router->group(['prefix' => 'api'], function () use ($router)
+{
+    $router->get('quizzes', ['uses' => 'QuizController@showAll']);
+    $router->get('quizzes/{id}', ['uses' => 'QuizController@showOne']);
+    $router->post('quizzes', ['uses' => 'QuizController@create']);
+    $router->put('quizzes/{id}', ['uses' => 'QuizController@update']);
+    $router->delete('quizzes/{id}', ['uses' => 'QuizController@delete']);
 });
