@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class QuestionController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+	
 	public function showAll()
 	{
 		return response()->json(Question::all());
