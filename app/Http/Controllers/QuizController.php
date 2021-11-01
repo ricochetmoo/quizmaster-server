@@ -10,7 +10,7 @@ class QuizController extends Controller
 	{
 		$this->middleware('auth');
 	}
-	
+
 	public function showAll()
 	{
 		return response()->json(Quiz::all());
