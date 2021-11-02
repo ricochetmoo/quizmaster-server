@@ -38,7 +38,7 @@ class QuizController extends Controller
 
 	public function delete($id)
 	{
-		Quiz::findOrFail($id)->delete;
+		Quiz::findOrFail($id)->delete();
 
 		return response('Deleted successfully.', 200);
 	}
