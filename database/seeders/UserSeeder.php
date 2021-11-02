@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         ([
             'name' => 'Admin Deleteme',
             'email' => 'john.doe@jamesbarber.tech',
-            'password' => 'password'
+            'password' => app('hash')->make('password')
         ]);
     }
 }
