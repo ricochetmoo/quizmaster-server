@@ -47,16 +47,16 @@ class QuestionController extends Controller
 
 	public function showPreviousInQuiz($id)
 	{
-		$quesiton = Question::findOrFail($id);
+		$question = Question::findOrFail($id);
 
-		$previousQuesiton = Question::where('quiz', $question->quiz)->where('number', '<', $question->number)->orderBy('number', 'desc')->first();
+		$previousQuestion = Question::where('quiz', $question->quiz)->where('number', '<', $question->number)->orderBy('number', 'desc')->first();
 		
 		if (!$previousQuestion)
 		{
 			return response("This is the first question.", 404);
 		}
 
-		return response()->json($previousQuesiton);
+		return response()->json($previousQuestion);
 	}
 
 	public function show($id)
